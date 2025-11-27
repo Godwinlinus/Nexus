@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const mainVideoRef = useRef(null);
   const nextVideoRef = useRef(null);
@@ -74,6 +75,17 @@ const Hero = () => {
 
   return (
     <div className="relative h-screen w-screen overflow-x-hidden">
+      {/* Loader */}
+      {loading && (
+        <div className="flex-center absolute z-[100] h-screen w-screen bg-violet-50">
+          <div className="three-body">
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+          </div>
+        </div>
+      )}
+
       <div
         id="video-frame"
         className="relative z-10 h-screen w-screen overflow-hidden bg-blue-75 rounded-lg"
@@ -114,6 +126,7 @@ const Hero = () => {
           loop
           muted
           className="absolute left-0 top-0 w-full h-full object-cover object-center"
+          onCanPlay={() => setLoading(false)}
         />
 
         {/* Hero Text & Button */}
